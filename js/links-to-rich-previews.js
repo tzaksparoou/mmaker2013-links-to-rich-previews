@@ -16,7 +16,7 @@ const richPreviewTemplate = `
 async function updateLink(link) {
     $.ajax({
         type: 'GET',
-        url: 'http://www.whateverorigin.org/get?url=' + encodeURIComponent(link) + '&callback=?',
+        url: 'https://whatever-origin.herokuapp.com/get?url=' + encodeURIComponent(link) + '&callback=?',
         dataType: 'json',
         success: function (data) {
             htmlResponse = data.contents;
