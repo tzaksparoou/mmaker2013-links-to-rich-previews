@@ -1,4 +1,5 @@
-let richPreviewTemplate = `
+const domainUrl = "https://via.giftmoji.com/";
+const richPreviewTemplate = `
     <div class="rich-preview">  
         <div class="rich-preview-image">    
             <a href="https://sub.domain.com/link-one" target="_blank" class="rich">      
@@ -11,7 +12,7 @@ let richPreviewTemplate = `
     </div>
     `;
 
-
+// Get link metadata and update links in DOM
 async function updateLink(link) {
     $.ajax({
         type: 'GET',
@@ -21,9 +22,7 @@ async function updateLink(link) {
             htmlResponse = data.contents;
             let htmlDoc = $.parseHTML($.trim(htmlResponse));
             const title = $(htmlDoc).filter('meta[property="og:title"]').attr('content');
-            // console.log(title);
             const imageUrl = $(htmlDoc).filter('meta[property="og:image"]').attr('content');
-            // console.log(imageUrl);
             if(title && imageUrl){
                 appendRichPreview(link, title, imageUrl);
             }
@@ -31,27 +30,26 @@ async function updateLink(link) {
     });
 }
 
-function getPageLinks() {
-    const links = $('a[href*="/via.giftmoji.com/"]:not(".rich")')
-    // .not('.rich');
+// Get all links of the page that are of a certain domain
+function getPageLinks(url) {
+    const links = $('a[href*="' + url + '"][href!="' + url + '"]:not(".rich")');
     return links;
 }
 
+// Append rich preview to html DOM
 function appendRichPreview(link, title, imageUrl) {
     let richPreview =
         $(richPreviewTemplate)
             .find('div.rich-preview-image a.rich').attr('href', link).end()
             .find('a.rich img').attr('src', imageUrl).end()
             .find('div.rich-preview-link a').attr('href', link).text(title).end()
-    console.log(richPreview);
     $(link).replaceWith(richPreview);
 }
 
-
 $(document).ready(function () {
+    // Currently the links are updated, if needed, every 2 seconds
     setInterval(function () {
-        const links = getPageLinks();
-        console.log(links)
+        let links = getPageLinks(domainUrl);
         for (let i = 0; i < links.length; i++) {
             updateLink(links[i])
         }
