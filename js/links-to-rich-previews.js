@@ -55,17 +55,7 @@ $(document).ready(function () {
         }
     },2000);
 
-    setTimeout(function(){ 
-        $("#chat").append(`
-        <div class="pt-2 text-left">
-            <a href="https://via.giftmoji.com/6RohGoo7mgh5QQgF"
-                target="_blank">https://via.giftmoji.com/6RohGoo7mgh5QQgF</a>
-        </div>
-        `
-        )
-     }, 3000);
 
-     
     setTimeout(function(){ 
         $("#chat").append(`
         <div class="pt-2 text-left">
@@ -74,6 +64,17 @@ $(document).ready(function () {
         </div>
         `
         )
-     }, 6000);     
+     }, 4000);   
+
+     
+    setTimeout(function(){ 
+        $("#chat").append(`
+        <div class="pt-2 text-right">
+            <a href="https://via.giftmoji.com/9TolVbYpGAbn2FKy"
+                target="_blank">https://via.giftmoji.com/6RohGoo7mgh5QQgF</a>
+        </div>
+        `
+        )
+     }, 6000);
     
 });
